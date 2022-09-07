@@ -30,61 +30,64 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var userAdapter: UserAdapter
+
+    private var userAdapter: UserAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAdapter = UserAdapter(requireContext(), this)
-        binding.imgMenu.setOnClickListener {
+        binding?.imgMenu?.setOnClickListener {
             (activity as MainActivity).openCloseNavigationDrawer()
         }
         setRecyclerView()
-        val searchStream = RxTextView.textChanges(binding.edtSearch)
-            .skipInitialValue()
-            .map { search ->
-                TextUtils.isEmpty(search)
-            }
+        val searchStream = binding?.edtSearch?.let {
+            RxTextView.textChanges(it)
+                .skipInitialValue()
+                .map { search ->
+                    TextUtils.isEmpty(search)
+                }
+        }
 
-        searchStream.subscribe {
+        searchStream?.subscribe {
             showIsEmpty(it)
         }
-        binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
+        binding?.edtSearch?.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                 Helper.hideSoftKeyBoard(requireContext(), view)
-                fetchUser(binding.edtSearch.text.toString())
+                fetchUser(binding?.edtSearch?.text.toString())
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
-        binding.timeout.btnTryAgain.setOnClickListener {
-            binding.timeout.root.visibility = View.GONE
-            fetchUser(binding.edtSearch.text.toString())
+        binding?.timeout?.btnTryAgain?.setOnClickListener {
+            binding?.timeout?.root?.visibility = View.GONE
+            fetchUser(binding?.edtSearch?.text.toString())
         }
     }
 
     private fun showIsEmpty(isEmpty: Boolean) {
         if(isEmpty) {
-            binding.rvUser.visibility = View.GONE
-            binding.timeout.root.visibility = View.GONE
-            binding.animationView.visibility = View.VISIBLE
+            binding?.rvUser?.visibility = View.GONE
+            binding?.timeout?.root?.visibility = View.GONE
+            binding?.animationView?.visibility = View.VISIBLE
         }
     }
 
     private fun setRecyclerView() {
-        binding.rvUser.apply {
+        userAdapter = UserAdapter(requireContext(), this)
+        binding?.rvUser?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = userAdapter
@@ -99,16 +102,16 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
                     when(response) {
                         is Resource.Success -> {
                             stateLoading(false)
-                            binding.rvUser.visibility = View.VISIBLE
+                            binding?.rvUser?.visibility = View.VISIBLE
                             if(response.data != null) {
-                                userAdapter.submitList(response.data)
+                                userAdapter?.submitList(response.data)
                             }
                         }
                         is Resource.Loading -> {stateLoading(true)}
                         is Resource.Error -> {
                             stateLoading(false)
-                            binding.timeout.root.visibility = View.VISIBLE
-                            binding.rvUser.visibility = View.GONE
+                            binding?.timeout?.root?.visibility = View.VISIBLE
+                            binding?.rvUser?.visibility = View.GONE
                         }
                     }
                 }
@@ -119,13 +122,13 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     private fun stateLoading(loading: Boolean) {
         when(loading) {
             true -> {
-                binding.rvUser.visibility = View.GONE
-                binding.animationView.visibility = View.GONE
-                binding.loadSearching.visibility = View.VISIBLE
+                binding?.rvUser?.visibility = View.GONE
+                binding?.animationView?.visibility = View.GONE
+                binding?.loadSearching?.visibility = View.VISIBLE
             }
             false -> {
-                binding.animationView.visibility = View.GONE
-                binding.loadSearching.visibility = View.GONE
+                binding?.animationView?.visibility = View.GONE
+                binding?.loadSearching?.visibility = View.GONE
             }
         }
     }
@@ -135,6 +138,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     }
 
     override fun onDestroyView() {
+        userAdapter = null
         super.onDestroyView()
         _binding = null
     }

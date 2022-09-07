@@ -21,7 +21,7 @@ import javax.inject.Inject
 class FavoriteFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -29,16 +29,16 @@ class FavoriteFragment : Fragment(), UserAdapter.OnItemClickListener {
     private val viewModel: FavoriteViewModel by viewModels {
         factory
     }
-    private lateinit var userAdapter: UserAdapter
+    private var userAdapter: UserAdapter? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,7 @@ class FavoriteFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     private fun setRecyclerView() {
         userAdapter = UserAdapter(requireContext(), this)
-        binding.rvUser.apply {
+        binding?.rvUser?.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = userAdapter
@@ -73,17 +73,18 @@ class FavoriteFragment : Fragment(), UserAdapter.OnItemClickListener {
     private fun fetchFavorite() {
         viewModel.user.observe(viewLifecycleOwner) { user ->
             if (user.isNotEmpty()) {
-                userAdapter.submitList(user)
-                binding.rvUser.visibility = View.VISIBLE
-                binding.animationView.visibility = View.GONE
+                userAdapter?.submitList(user)
+                binding?.rvUser?.visibility = View.VISIBLE
+                binding?.animationView?.visibility = View.GONE
             } else {
-                binding.rvUser.visibility = View.GONE
-                binding.animationView.visibility = View.VISIBLE
+                binding?.rvUser?.visibility = View.GONE
+                binding?.animationView?.visibility = View.VISIBLE
             }
         }
     }
 
     override fun onDestroyView() {
+        userAdapter = null
         super.onDestroyView()
         _binding = null
     }

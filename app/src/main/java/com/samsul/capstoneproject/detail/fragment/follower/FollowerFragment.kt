@@ -23,7 +23,7 @@ class FollowerFragment : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FollowerViewModel by viewModels()
-    private lateinit var followerAdapter: FollowerAdapter
+    private var followerAdapter: FollowerAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +57,7 @@ class FollowerFragment : Fragment() {
                     when(response) {
                         is Resource.Success -> {
                             if(response.data != null) {
-                                followerAdapter.submitList(response.data)
+                                followerAdapter?.submitList(response.data)
                             }
                         }
                         is Resource.Loading -> {}
@@ -69,6 +69,7 @@ class FollowerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        followerAdapter = null
         super.onDestroyView()
         _binding = null
     }

@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.samsul.core.R
 import com.samsul.core.databinding.ItemUserBinding
 import com.samsul.core.domain.model.Users
+import com.squareup.picasso.Picasso
 
 class FollowerAdapter(private val context: Context): ListAdapter<Users, FollowerAdapter.FollowerViewHolder>(DiffCallBack()) {
 
@@ -30,8 +31,9 @@ class FollowerAdapter(private val context: Context): ListAdapter<Users, Follower
         fun bind(users: Users) {
             binding.tvDetail.visibility = View.GONE
             binding.tvName.text = users.login
-            Glide.with(context)
-                .load(users.avatarUrl)
+            Picasso.get().load(users.avatarUrl)
+                .placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_error)
                 .into(binding.imgUser)
         }
     }

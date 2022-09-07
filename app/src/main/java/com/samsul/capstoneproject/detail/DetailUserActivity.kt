@@ -8,13 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.samsul.capstoneproject.R
 import com.samsul.capstoneproject.databinding.ActivityDetailUserBinding
 import com.samsul.core.domain.model.Users
 import com.samsul.core.utils.Resource
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -66,10 +65,9 @@ class DetailUserActivity : AppCompatActivity() {
                                     isFavorite = user.isFavorite == true
                                     setStatusFavorite(isFavorite)
                                 }
-
-                                Glide.with(this@DetailUserActivity)
-                                    .load(response.data?.avatarUrl)
-                                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_baseline_broken_image_24))
+                                Picasso.get().load(response.data?.avatarUrl)
+                                    .placeholder(R.drawable.ic_loading)
+                                    .error(R.drawable.ic_error)
                                     .into(binding.imgUser)
                                 binding.tvFollower.text = response.data?.followers.toString()
                                 binding.tvFollowing.text = response.data?.following.toString()
