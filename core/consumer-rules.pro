@@ -4,6 +4,11 @@
 ##---------------Begin: proguard configuration for Gson ----------
 # Gson uses generic type information stored in a class file when working with fields. Proguard
 # removes such information by default, so configure it to keep all of it.
+-keepclassmembers public class * extends android.view.View {
+  public static <methods>;
+}
+-keep public class * extends android.app.Activity
+
 -keepattributes Signature
 
 # For using GSON @Expose annotation
