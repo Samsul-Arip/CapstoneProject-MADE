@@ -20,5 +20,5 @@
     <string name="unknown">Unknown</string>
     <string name="try_again">Try Again</string>
     <string name="something_wrong">Oops, Something wrong, please check your connection and try again</string>
-    <string name="menu_favorite">menu favorite</string>
+    <string name="menu_favorite" translatable="false">menu favorite</string>
 </resources>
