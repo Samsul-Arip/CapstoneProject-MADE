@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_favorite">Favorit</string>
+    <string name="my_name">Samsul-Arip</string>
+    <string name="my_nickname">Haloo Dicoding</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home">Beranda</string>
+    <string name="favorite">Favorit</string>
+    <string name="settings">Pengaturan</string>
+    <string name="todo">TODO</string>
+    <string name="github">Github</string>
+    <string name="search_username_github_here">Cari nama pengguna disini...</string>
+    <string name="list_user">Daftar Pengguna</string>
+    <string name="pencarian_tidak_boleh_kosong">Pencarian tidak boleh kosong!</string>
+    <string name="language_settings">Pengaturan Bahasa</string>
+    <string name="your_favorite">Favorit Anda</string>
+    <string name="detail">Detail Pengguna</string>
+    <string name="following">Pengikut</string>
+    <string name="followers">Diikuti</string>
+    <string name="unknown">Tidak diketahui</string>
+    <string name="try_again">Coba Lagi</string>
+</resources>
