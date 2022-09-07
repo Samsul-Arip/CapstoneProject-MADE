@@ -20,14 +20,26 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_SERVICE", '"https://api.github.com/"'
+            buildConfigField "String", "API_KEY", '"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"'
+            buildConfigField "String", "HOST_NAME", '"api.github.com"'
+            buildConfigField "String", "SHA_1", '"sha256/1UPHAdcUbUoOcd5rDTD/0oMSnngCU6YzXzpByO4CCp4="'
+            buildConfigField "String", "SHA_2", '"sha256/RQeZkB42znUfsDIIFWIRiYEcKl7nHwNFwWCrnMMJbVc="'
+            buildConfigField "String", "SHA_3", '"sha256/uyPYgclc5Jt69vKu92vci6etcBDY8UNTyrHQZJpVoZY="'
+            buildConfigField "String", "SHA_4", '"sha256/e0IRz5Tio3GA1Xs4fUVWmH1xHDiH2dMbVtCBSkOIdqM="'
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_SERVICE", '"https://api.github.com/"'
+            buildConfigField "String", "API_KEY", '"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"'
+            buildConfigField "String", "HOST_NAME", '"api.github.com"'
+            buildConfigField "String", "SHA_1", '"sha256/1UPHAdcUbUoOcd5rDTD/0oMSnngCU6YzXzpByO4CCp4="'
+            buildConfigField "String", "SHA_2", '"sha256/RQeZkB42znUfsDIIFWIRiYEcKl7nHwNFwWCrnMMJbVc="'
+            buildConfigField "String", "SHA_3", '"sha256/uyPYgclc5Jt69vKu92vci6etcBDY8UNTyrHQZJpVoZY="'
+            buildConfigField "String", "SHA_4", '"sha256/e0IRz5Tio3GA1Xs4fUVWmH1xHDiH2dMbVtCBSkOIdqM="'
         }
     }
     compileOptions {
@@ -55,9 +67,14 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
+    //encrypt
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.2.0"
+
     //retrofit
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //noinspection GradleDependency
     api "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
     api 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
@@ -68,5 +85,6 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$lifecycle_version"
     api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_ktx_version"
     api "androidx.activity:activity-ktx:$activity_ktx_version"
+
 
 }

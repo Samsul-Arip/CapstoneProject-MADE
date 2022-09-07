@@ -21,7 +21,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
                 if(user.isNotEmpty()) {
                     emit(ApiResponse.Success(user))
                 }
-                emit(ApiResponse.Error("Terjadi Kesalahan"))
+                emit(ApiResponse.Error(null))
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
@@ -34,7 +34,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
                 if (username.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
                 }
-                emit(ApiResponse.Error("Terjadi Kesalahan"))
+                emit(ApiResponse.Error(null))
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
@@ -47,7 +47,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
                 if (response.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
                 }
-                emit(ApiResponse.Error("Terjadi Kesalahan"))
+                emit(ApiResponse.Error(null))
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
@@ -60,7 +60,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService){
                 if (response.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
                 }
-                emit(ApiResponse.Error("Terjadi Kesalahan"))
+                emit(ApiResponse.Error(null))
             } catch (e : Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }

@@ -1,4 +1,5 @@
 dependencies {
+    //noinspection GradleDependency
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
@@ -37,4 +38,6 @@ dependencies {
 
     //LeakCanary (detect memory leak)
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$canary_version"
+
+
 }

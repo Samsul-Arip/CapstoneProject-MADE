@@ -6,6 +6,7 @@ plugins {
     id 'kotlin-kapt'
 }
 apply from: '../shared_dependencies.gradle'
+
 android {
     compileSdk 32
 
@@ -20,8 +21,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

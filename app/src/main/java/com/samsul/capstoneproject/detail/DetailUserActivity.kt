@@ -52,6 +52,7 @@ class DetailUserActivity : AppCompatActivity() {
     private fun fetchDetail(username: String) {
         binding.progressBar.visibility = View.VISIBLE
         binding.layoutDetail.visibility = View.GONE
+        binding.fab.visibility = View.GONE
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getDetailUser(username).collect{ response ->
@@ -59,6 +60,7 @@ class DetailUserActivity : AppCompatActivity() {
                         is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             binding.layoutDetail.visibility = View.VISIBLE
+                            binding.fab.visibility = View.VISIBLE
                             if(response.data != null) {
                                 user = response.data!!
                                 viewModel.getStateFavorite(username)?.observe(this@DetailUserActivity) {user ->
@@ -80,6 +82,7 @@ class DetailUserActivity : AppCompatActivity() {
                         is Resource.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.layoutDetail.visibility = View.GONE
+                            binding.fab.visibility = View.GONE
                         }
                         is Resource.Error -> {
                             binding.progressBar.visibility = View.GONE
