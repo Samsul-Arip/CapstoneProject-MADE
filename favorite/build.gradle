@@ -6,6 +6,14 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 
 android {
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        // if true, stop the gradle build if errors are found
+        abortOnError false
+        // if true, only report errors
+        ignoreWarnings true
+    }
     compileSdk 32
 
     defaultConfig {
